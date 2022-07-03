@@ -1,9 +1,9 @@
-const users = require("./users.class.js");
-const advertisements = require("./advertisements.class.js");
-const chat = require("./chat.class.js");
+const Users = require('./users.class.js');
+const advertisements = require('./advertisements.class.js');
+const Chat = require('./chat.class.js');
 
 module.exports = {
-    users,
-    advertisements,
-    chat,
+	Users,
+	advertisements,
+	Chat,
 };

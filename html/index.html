@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Passport example</title>
+</head>
+<body>
+<p>Authenticated!</p>
+<p>Socket ID: <span id="socketId"></span></p>
+<p>Username: <span id="username"></span></p>
+<p><input id="mongoUserId" placeholder="Mongo user id to send chat MSG"></p>
+<button onclick="sendTestMsg()">send</button>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  const socketIdSpan = document.getElementById("socketId");
+  const usernameSpan = document.getElementById("username");
+  const mongoUserId = document.getElementById("mongoUserId");
+
+  function sendTestMsg() {
+    console.log('send');
+    const payload = {
+      receiver: mongoUserId.value,
+      text: makeRandomStr(55),
+    }
+    socket.emit('sendMessage', payload);
+  }
+
+  function makeRandomStr(length) {
+    let result             = '';
+    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  socket.on('connect', () => {
+
+    // socketIdSpan.innerText = socket.id;
+    // socket.emit('whoami', (username) => {
+    //   usernameSpan.innerText = username;
+    // });
+
+  });
+</script>
+</body>
+</html>
